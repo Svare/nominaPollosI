@@ -14,6 +14,8 @@ int main(int argc, char const *argv[]){
 	double kilosDeCarne; // kilos de carne de pollo entregado en kilos
 	double conversion; // kilos totales de alimento/kilos totales de carne de pollo
 
+	double gastoMedicamento;
+
 // Datos Calculados
 
 	double gananciaDiaria;
@@ -62,6 +64,9 @@ int main(int argc, char const *argv[]){
 
 	printf("\to Conversion: ");
 	scanf("%lf",&conversion);
+
+	printf("\to Gasto en Medicamento: ");
+	scanf("%lf",&gastoMedicamento);
 
 // CALCULOS
 
@@ -116,7 +121,23 @@ int main(int argc, char const *argv[]){
 		kilosDeCarne,bonoIndiceDeProductividad,kilosDeCarne*bonoIndiceDeProductividad);
 	printf("\n\tPago por Bono de Gramos Faltantes/Sobrantes\n\t\tKilos de Pollo * Bono por Gramos Faltantes/Sobrantes = %.2f * %f = %f",
 		kilosDeCarne,bonoGramosFaltantesSobrantes,kilosDeCarne*bonoGramosFaltantesSobrantes);
-	printf("\n\nPago Total = %.2f\n",kilosDeCarne*(bonoObtenido.bonoXKg + bonoIndiceDeProductividad + bonoGramosFaltantesSobrantes));
+	printf("\n\n\tSubtotal = %.2f\n",kilosDeCarne*(bonoObtenido.bonoXKg + bonoIndiceDeProductividad + bonoGramosFaltantesSobrantes));
+
+// AJUSTE CON MEDICAMENTO
+
+	printf("\nAJUSTE CON MEDICAMENTO");
+	printf("\n\n\tCantidad Autorizada para Medicamento\n\t\tKilos de Pollo * 0.23 = %.2f * 0.23 = %.2f",kilosDeCarne,kilosDeCarne*0.23);
+
+	if (gastoMedicamento > (kilosDeCarne * 0.23)) {
+		printf("\n\nSE SUPERO LA CANTIDAD AUTORIZADA PARA MEDICAMENTO\n");
+		printf("\n\tPago Total = %.2f - %.2f = %.2f\n",
+			kilosDeCarne*(bonoObtenido.bonoXKg + bonoIndiceDeProductividad + bonoGramosFaltantesSobrantes),
+			gastoMedicamento - (kilosDeCarne * 0.23),
+			(kilosDeCarne*(bonoObtenido.bonoXKg + bonoIndiceDeProductividad + bonoGramosFaltantesSobrantes)) - (gastoMedicamento - (kilosDeCarne * 0.23)));
+	} else {
+		printf("\n\nLA CANTIDAD AUTORIZADA DE MEDICAMENTO ESTA DENTRO DEL RANGO\n");
+		printf("\n\tPago Total = %.2f\n",kilosDeCarne*(bonoObtenido.bonoXKg + bonoIndiceDeProductividad + bonoGramosFaltantesSobrantes));
+	}
 
 	getchar();
 	getchar();
